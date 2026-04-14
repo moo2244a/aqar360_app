@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "14143379024",
+    "project_id": "aqar360-app-b32e5",
+    "storage_bucket": "aqar360-app-b32e5.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:14143379024:android:d18c4268a37061f77e2355",
+        "android_client_info": {
+          "package_name": "com.example.aqar360"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDeU09q-QVFHHVZ7APRz_IEKMEOxCHfMmU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
