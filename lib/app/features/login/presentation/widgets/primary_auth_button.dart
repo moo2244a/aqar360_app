@@ -4,27 +4,42 @@ import 'package:flutter/material.dart';
 class PrimaryAuthButton extends StatelessWidget {
   final String text;
   final VoidCallback onTap;
+  final bool isLoading;
 
-  const PrimaryAuthButton({super.key, required this.text, required this.onTap});
+  const PrimaryAuthButton({
+    super.key,
+    required this.text,
+    required this.onTap,
+    this.isLoading = false,
+  });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: onTap,
+      onTap: isLoading ? null : onTap,
       child: Container(
         width: double.infinity,
-        padding: const EdgeInsets.symmetric(vertical: 8),
+        padding: const EdgeInsets.symmetric(vertical: 12),
         decoration: BoxDecoration(
-          color: Color.fromARGB(255, 20, 127, 249),
+          color: const Color.fromARGB(255, 20, 127, 249),
           borderRadius: BorderRadius.circular(30),
         ),
         child: Center(
-          child: Text(
-            text,
-            style: Theme.of(
-              context,
-            ).textTheme.displayLarge?.copyWith(color: AppColors.white),
-          ),
+          child: isLoading
+              ? const SizedBox(
+                  height: 20,
+                  width: 20,
+                  child: CircularProgressIndicator(
+                    color: Colors.white,
+                    strokeWidth: 2,
+                  ),
+                )
+              : Text(
+                  text,
+                  style: Theme.of(
+                    context,
+                  ).textTheme.titleMedium?.copyWith(color: AppColors.white),
+                ),
         ),
       ),
     );

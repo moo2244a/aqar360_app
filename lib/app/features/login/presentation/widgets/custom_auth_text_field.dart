@@ -47,6 +47,7 @@ class CustomAuthTextField extends StatelessWidget {
           validator: validator,
           onChanged: onChanged,
           obscureText: obscureText,
+
           style: Theme.of(
             context,
           ).textTheme.bodyMedium?.copyWith(color: AppColors.midnightBlue),

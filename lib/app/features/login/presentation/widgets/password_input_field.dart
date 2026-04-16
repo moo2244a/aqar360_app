@@ -1,3 +1,4 @@
+import 'package:aqar360/app/core/utils/validators.dart';
 import 'package:aqar360/app/features/login/presentation/widgets/custom_auth_text_field.dart';
 import 'package:flutter/material.dart';
 
@@ -21,6 +22,7 @@ class _PasswordInputFieldState extends State<PasswordInputField> {
       prefixIcon: Icons.lock_outline,
       obscureText: _isObscured,
       controller: widget.controller,
+      validator: AppValidators.password,
       suffixWidget: GestureDetector(
         onTap: () {
           setState(() {
@@ -34,7 +36,9 @@ class _PasswordInputFieldState extends State<PasswordInputField> {
             borderRadius: BorderRadius.circular(4),
           ),
           child: Icon(
-            _isObscured ? Icons.visibility_off_outlined : Icons.visibility_outlined,
+            _isObscured
+                ? Icons.visibility_off_outlined
+                : Icons.visibility_outlined,
             color: Theme.of(context).colorScheme.primary,
             size: 18,
           ),
