@@ -92,13 +92,6 @@ class _VerifyEmailPageState extends State<VerifyEmailPage> {
             const SizedBox(height: 30),
 
             ElevatedButton(
-              onPressed: checkEmailVerified,
-              child: const Text('أنا قمت بالتفعيل'),
-            ),
-
-            const SizedBox(height: 10),
-
-            ElevatedButton(
               onPressed: isLoading ? null : resendEmail,
               child: isLoading
                   ? const CircularProgressIndicator(color: Colors.white)

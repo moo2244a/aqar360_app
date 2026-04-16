@@ -14,13 +14,21 @@ import 'package:aqar360/app/features/register/presentation/pages/verify_email_pa
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class LoginFormSection extends StatelessWidget {
-  LoginFormSection({super.key, required this.onTap});
+class LoginFormSection extends StatefulWidget {
+  const LoginFormSection({super.key, required this.onTap});
+  final void Function() onTap;
+
+  @override
+  State<LoginFormSection> createState() => _LoginFormSectionState();
+}
+
+class _LoginFormSectionState extends State<LoginFormSection> {
   TextEditingController emailController = TextEditingController();
+
   TextEditingController passwordController = TextEditingController();
+
   GlobalKey<FormState> globalKey = GlobalKey();
 
-  final void Function() onTap;
   @override
   Widget build(BuildContext context) {
     return Form(
@@ -52,9 +60,9 @@ class LoginFormSection extends StatelessWidget {
                 ).textTheme.displayLarge?.copyWith(color: AppColors.white),
               ),
               const SizedBox(height: 25),
-              const EmailInputField(),
+              EmailInputField(controller: emailController),
               const SizedBox(height: 18),
-              const PasswordInputField(),
+              PasswordInputField(controller: passwordController),
               const SizedBox(height: 12),
               const LoginOptionsRow(),
               const SizedBox(height: 60),

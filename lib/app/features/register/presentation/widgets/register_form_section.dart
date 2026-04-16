@@ -11,14 +11,24 @@ import 'package:aqar360/app/features/register/presentation/cubit/register_cubit.
 import 'package:aqar360/app/features/register/presentation/cubit/register_state.dart';
 import 'package:aqar360/app/features/register/presentation/pages/verify_email_page.dart';
 import 'package:aqar360/app/features/register/presentation/widgets/name_input_field.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class RegisterFormSection extends StatelessWidget {
-  RegisterFormSection({super.key, required this.onTap});
+class RegisterFormSection extends StatefulWidget {
+  const RegisterFormSection({super.key, required this.onTap});
   final void Function() onTap;
+
+  @override
+  State<RegisterFormSection> createState() => _RegisterFormSectionState();
+}
+
+class _RegisterFormSectionState extends State<RegisterFormSection> {
   TextEditingController emailController = TextEditingController();
+
+  TextEditingController nameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
+
   GlobalKey<FormState> globalKey = GlobalKey();
 
   @override
@@ -53,11 +63,11 @@ class RegisterFormSection extends StatelessWidget {
               ),
               const SizedBox(height: 10),
 
-              const NameInputField(),
+              NameInputField(controller: nameController),
               const SizedBox(height: 10),
-              const EmailInputField(),
+              EmailInputField(controller: emailController),
               const SizedBox(height: 10),
-              const PasswordInputField(),
+              PasswordInputField(controller: passwordController),
 
               const SizedBox(height: 20),
               BlocConsumer<RegisterCubit, RegisterState>(
@@ -84,9 +94,11 @@ class RegisterFormSection extends StatelessWidget {
                     text: "سجل الدخول",
                     isLoading: isLoading,
                     onTap: () async {
+                      print(FirebaseAuth.instance.app.name);
                       final UserModel userModel = UserModel(
-                        email: emailController.text,
-                        password: passwordController.text,
+                        email: emailController.text.trim(),
+                        password: passwordController.text.trim(),
+                        name: nameController.text.trim(),
                       );
                       if (globalKey.currentState!.validate()) {
                         await RegisterCubit.get(

@@ -14,7 +14,7 @@ class LoginCubit extends Cubit<LoginState> {
     try {
       final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
         email: user.email,
-        password: user.password ?? '',
+        password: user.password,
       );
 
       emit(LoginSuccess(userModel: credential));

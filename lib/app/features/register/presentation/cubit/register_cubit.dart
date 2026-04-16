@@ -10,12 +10,13 @@ class RegisterCubit extends Cubit<RegisterState> {
   Future<void> createUserWithEmailAndPassword(UserModel user) async {
     emit(RegisterLoading());
     try {
-      final credential = await FirebaseAuth.instance
+      final userCredential = await FirebaseAuth.instance
           .createUserWithEmailAndPassword(
             email: user.email,
-            password: user.password!,
+            password: user.password,
           );
-      emit(RegisterSuccess(userModel: credential));
+      await userCredential.user!.updateDisplayName(user.name);
+      emit(RegisterSuccess(userModel: userCredential));
       return;
     } on FirebaseAuthException catch (e) {
       String message;
@@ -32,11 +33,12 @@ class RegisterCubit extends Cubit<RegisterState> {
         default:
           message = e.message ?? 'Something went wrong';
       }
-
+      print(e);
       emit(RegisterError(message: message));
 
       return;
     } catch (e) {
+      print(e);
       emit(RegisterError(message: '$e'));
 
       return;
