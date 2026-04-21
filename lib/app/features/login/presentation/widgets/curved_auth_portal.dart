@@ -18,18 +18,15 @@ class CurvedAuthPortal extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final resolvedHeight = height ?? MediaQuery.sizeOf(context).height * 0.72 - margin;
     return Container(
-      height: resolvedHeight,
-      margin: EdgeInsets.all(margin),
+      margin: EdgeInsets.only(top: margin, left: margin, right: margin),
+      height: height,
+      padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 10),
       decoration: BoxDecoration(
         color: color,
         gradient: gradient,
         border: const Border(
-          top: BorderSide(
-            color: Color.fromARGB(255, 26, 111, 238),
-            width: 3,
-          ),
+          top: BorderSide(color: Color.fromARGB(255, 26, 111, 238), width: 3),
         ),
         borderRadius: BorderRadius.only(
           topLeft: Radius.circular(MediaQuery.sizeOf(context).width / 2),

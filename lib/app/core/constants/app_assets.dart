@@ -9,4 +9,5 @@ class AppAssets {
   static String fluid3DlikeShapes = "assets/images/FluidShapes.png";
   static String authSelection = "assets/images/auth_selection.png";
   static String brandLogo = "assets/images/Brand Logo.png";
+  static String emailRevealAnimation = "assets/Email reveal animation.json";
 }

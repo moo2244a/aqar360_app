@@ -1,4 +1,5 @@
 import 'package:aqar360/app/core/constants/app_colors.dart';
+import 'package:aqar360/app/core/constants/app_strings.dart';
 import 'package:aqar360/app/features/onboarding/presentation/pages/auth_selection_screen.dart';
 import 'package:aqar360/app/features/onboarding/presentation/widgets/head_line_text_widget.dart';
 import 'package:aqar360/app/features/onboarding/presentation/widgets/smart_onboarding_next_button.dart';
@@ -19,14 +20,14 @@ class SmartOnboardingForegroundContent extends StatelessWidget {
         children: [
           const Spacer(),
           const HeadlineTextWidget(
-            title1: 'تقنية ذكية ',
-            title2: 'للبحث',
+            title1: AppStrings.smartOnboardingHeadlinePart1,
+            title2: AppStrings.smartOnboardingHeadlinePart2,
             colorT1: AppColors.black,
           ),
           const SizedBox(height: 24),
           const WelcomeSubDescriptionText(
             colorText: AppColors.black,
-            subDescriptionText: 'حلول متطورة تجعل الوصول لمنزلك المستقبلي اسرع',
+            subDescriptionText: AppStrings.smartOnboardingSubDescription,
           ),
           const SizedBox(height: 15),
           SmartOnboardingNextButton(

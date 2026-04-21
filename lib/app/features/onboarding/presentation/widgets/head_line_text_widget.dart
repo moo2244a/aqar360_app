@@ -1,4 +1,5 @@
 import 'package:aqar360/app/core/constants/app_colors.dart';
+import 'package:aqar360/app/core/usecases/typewriter_text.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -21,8 +22,8 @@ class HeadlineTextWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.center,
       mainAxisAlignment: .start,
       children: [
-        Text(
-          title1,
+        TypewriterText(
+          text: title1,
           style: GoogleFonts.cairo(
             fontSize: fontSize,
             fontWeight: FontWeight.bold,
@@ -31,12 +32,13 @@ class HeadlineTextWidget extends StatelessWidget {
             height: 1.2,
           ),
         ),
+        SizedBox(height: 8),
         ShaderMask(
           shaderCallback: (bounds) => const LinearGradient(
             colors: [AppColors.buttonBlue, AppColors.brightCyan],
           ).createShader(bounds),
-          child: Text(
-            title2,
+          child: TypewriterText(
+            text: title2,
             textAlign: TextAlign.center,
             style: GoogleFonts.notoKufiArabic(
               fontSize: fontSize,

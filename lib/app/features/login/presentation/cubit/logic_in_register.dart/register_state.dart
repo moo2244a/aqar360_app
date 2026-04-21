@@ -16,9 +16,9 @@ class RegisterLoading extends RegisterState {
 }
 
 class RegisterSuccess extends RegisterState {
-  final UserCredential userModel;
+  final UserCredential userCredential;
 
-  const RegisterSuccess({required this.userModel});
+  const RegisterSuccess({required this.userCredential});
 }
 
 class RegisterError extends RegisterState {

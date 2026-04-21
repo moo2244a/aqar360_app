@@ -1,9 +1,10 @@
-import 'package:aqar360/app/features/login/presentation/cubit/login_cubit.dart';
+import 'package:aqar360/app/core/usecases/auth_dependencies.dart';
+import 'package:aqar360/app/features/login/presentation/cubit/logic_in_login/login_cubit.dart';
+import 'package:aqar360/app/features/home/presentation/screens/home_screen.dart';
 import 'package:aqar360/app/features/login/presentation/widgets/login_form_section.dart';
 import 'package:aqar360/app/features/login/presentation/widgets/curved_auth_portal.dart';
 import 'package:aqar360/app/features/login/presentation/widgets/register_now_text_component.dart';
 import 'package:aqar360/app/features/login/presentation/widgets/auth_header_background.dart';
-import 'package:aqar360/app/features/onboarding/presentation/pages/welcome_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -36,16 +37,17 @@ class _LoginScreenState extends State<LoginScreen>
     });
     _doorController.addStatusListener((status) {
       if (status == AnimationStatus.completed) {
-        Navigator.of(context).pushReplacement(
+        Navigator.of(context).pushAndRemoveUntil(
           PageRouteBuilder(
             pageBuilder: (context, animation, secondaryAnimation) =>
-                const WelcomeScreen(),
+                const HomeScreen(),
             transitionsBuilder:
                 (context, animation, secondaryAnimation, child) {
                   return ScaleTransition(scale: animation, child: child);
                 },
             transitionDuration: const Duration(milliseconds: 500),
           ),
+          (route) => false,
         );
       }
     });
@@ -54,6 +56,7 @@ class _LoginScreenState extends State<LoginScreen>
   @override
   void dispose() {
     _doorController.dispose();
+
     super.dispose();
   }
 
@@ -62,7 +65,11 @@ class _LoginScreenState extends State<LoginScreen>
     final size = MediaQuery.sizeOf(context);
 
     return BlocProvider<LoginCubit>(
-      create: (context) => LoginCubit(),
+      create: (context) {
+        final authDependencies = AuthDependencies.create();
+        return LoginCubit(loginUsecase: authDependencies.loginUsecase);
+      },
+
       child: Directionality(
         textDirection: TextDirection.rtl,
         child: Scaffold(
@@ -80,6 +87,7 @@ class _LoginScreenState extends State<LoginScreen>
                         left: 0,
                         child: Center(
                           child: CurvedAuthPortal(
+                            height: MediaQuery.sizeOf(context).height * 0.64,
                             color: Theme.of(context).scaffoldBackgroundColor,
                           ),
                         ),

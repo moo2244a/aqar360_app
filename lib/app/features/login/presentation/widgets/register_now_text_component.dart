@@ -1,4 +1,5 @@
-import 'package:aqar360/app/features/register/presentation/pages/register_screen.dart';
+import 'package:aqar360/app/core/constants/app_strings.dart';
+import 'package:aqar360/app/features/login/presentation/pages/register_screen.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 
@@ -9,13 +10,13 @@ class RegisterNowTextComponent extends StatelessWidget {
   Widget build(BuildContext context) {
     return RichText(
       text: TextSpan(
-        text: "ليس لديك حساب؟ ",
+        text: AppStrings.alreadyHaveAccountPrompt,
         style: Theme.of(
           context,
         ).textTheme.bodyLarge?.copyWith(color: Colors.black87),
         children: [
           TextSpan(
-            text: "سجل الآن",
+            text: AppStrings.registerNowLink,
             style: Theme.of(
               context,
             ).textTheme.labelLarge?.copyWith(color: const Color(0xFF2E61B9)),

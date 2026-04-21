@@ -1,4 +1,5 @@
-import 'package:aqar360/app/core/utils/validators.dart';
+import 'package:aqar360/app/core/constants/app_strings.dart';
+import 'package:aqar360/app/core/utils/app_validators.dart';
 import 'package:aqar360/app/features/login/presentation/widgets/custom_auth_text_field.dart';
 import 'package:flutter/material.dart';
 
@@ -13,8 +14,8 @@ class NameInputField extends StatelessWidget {
       controller: controller,
       validator: AppValidators.name,
       keyboardType: TextInputType.name,
-      label: 'الاسم',
-      hint: 'أدخل اسمك بالكامل',
+      label: AppStrings.nameFieldLabel,
+      hint: AppStrings.nameFieldHint,
       prefixIcon: Icons.person_outline,
     );
   }

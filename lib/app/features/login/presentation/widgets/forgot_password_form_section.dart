@@ -1,4 +1,5 @@
 import 'package:aqar360/app/core/constants/app_colors.dart';
+import 'package:aqar360/app/core/constants/app_strings.dart';
 import 'package:aqar360/app/features/login/presentation/widgets/curved_auth_portal.dart';
 import 'package:aqar360/app/features/login/presentation/widgets/email_input_field.dart';
 import 'package:aqar360/app/features/login/presentation/widgets/primary_auth_button.dart';
@@ -18,6 +19,12 @@ class _ForgotPasswordFormSectionState extends State<ForgotPasswordFormSection> {
   TextEditingController emailController = TextEditingController();
 
   GlobalKey<FormState> globalKey = GlobalKey();
+  @override
+  void dispose() {
+    emailController.dispose();
+
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,14 +51,14 @@ class _ForgotPasswordFormSectionState extends State<ForgotPasswordFormSection> {
               ),
               const SizedBox(height: 8),
               Text(
-                'استعادة كلمة السر',
+                AppStrings.forgotPasswordFormTitle,
                 style: Theme.of(
                   context,
                 ).textTheme.displayLarge?.copyWith(color: AppColors.white),
               ),
               const SizedBox(height: 15),
               Text(
-                'أدخل بريدك الإلكتروني وسيتم إرسال رابط لاستعادة كلمة السر الخاص بك.',
+                AppStrings.forgotPasswordInstructions,
                 textAlign: TextAlign.center,
                 style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                   color: AppColors.white.withValues(alpha: 0.8),
@@ -62,7 +69,7 @@ class _ForgotPasswordFormSectionState extends State<ForgotPasswordFormSection> {
               const EmailInputField(),
               const SizedBox(height: 40),
               PrimaryAuthButton(
-                text: 'إرسال الرابط',
+                text: AppStrings.sendResetLinkButton,
                 onTap: () async {
                   if (globalKey.currentState!.validate()) {
                     await resetPassword();
@@ -75,7 +82,7 @@ class _ForgotPasswordFormSectionState extends State<ForgotPasswordFormSection> {
                   Navigator.pop(context);
                 },
                 child: Text(
-                  'العودة لتسجيل الدخول',
+                  AppStrings.backToLoginLink,
                   style: Theme.of(context).textTheme.bodyMedium?.copyWith(
                     color: AppColors.white,
                     fontWeight: FontWeight.bold,
@@ -99,11 +106,13 @@ class _ForgotPasswordFormSectionState extends State<ForgotPasswordFormSection> {
       );
       Navigator.pop(context);
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('تم إرسال رابط إعادة تعيين كلمة المرور')),
+        const SnackBar(content: Text(AppStrings.resetPasswordEmailSentMessage)),
       );
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text('حدث خطأ، تأكد من البريد الإلكتروني')),
+        const SnackBar(
+          content: Text(AppStrings.resetPasswordEmailErrorMessage),
+        ),
       );
     }
   }

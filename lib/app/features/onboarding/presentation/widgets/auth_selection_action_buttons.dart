@@ -1,6 +1,7 @@
+import 'package:aqar360/app/core/constants/app_strings.dart';
 import 'package:aqar360/app/features/login/presentation/pages/login_screen.dart';
 import 'package:aqar360/app/features/onboarding/presentation/widgets/welcome_start_explore_button.dart';
-import 'package:aqar360/app/features/register/presentation/pages/register_screen.dart';
+import 'package:aqar360/app/features/login/presentation/pages/register_screen.dart';
 import 'package:flutter/material.dart';
 
 class AuthSelectionActionButtons extends StatelessWidget {
@@ -18,7 +19,7 @@ class AuthSelectionActionButtons extends StatelessWidget {
               MaterialPageRoute(builder: (context) => LoginScreen()),
             );
           },
-          text: "تسجيل دخول",
+          text: AppStrings.loginFormTitle,
         ),
         WelcomeStartExploreButton(
           onPressed: () {
@@ -27,7 +28,7 @@ class AuthSelectionActionButtons extends StatelessWidget {
               MaterialPageRoute(builder: (context) => RegisterScreen()),
             );
           },
-          text: "انشاء حساب جديد",
+          text: AppStrings.registerFormTitle,
         ),
       ],
     );

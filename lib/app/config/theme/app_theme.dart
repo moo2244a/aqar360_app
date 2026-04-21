@@ -13,7 +13,7 @@ class AppTheme {
         surface: AppColors.white,
       ),
       appBarTheme: AppBarTheme(
-        backgroundColor: AppColors.midnightBlue,
+        backgroundColor: AppColors.white,
         elevation: 0,
         centerTitle: true,
         iconTheme: const IconThemeData(color: AppColors.white),

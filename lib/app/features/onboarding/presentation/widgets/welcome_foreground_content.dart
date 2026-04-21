@@ -1,3 +1,4 @@
+import 'package:aqar360/app/core/constants/app_strings.dart';
 import 'package:aqar360/app/features/onboarding/presentation/widgets/welcome_headline_title.dart';
 import 'package:aqar360/app/features/onboarding/presentation/widgets/welcome_start_explore_button.dart';
 import 'package:aqar360/app/features/onboarding/presentation/widgets/welcome_sub_description_text.dart';
@@ -25,11 +26,13 @@ class WelcomeForegroundContent extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: const [
-              WelcomeHeadlineTitle(title1: 'ابحث عن', title2: 'الفخامة'),
+              WelcomeHeadlineTitle(
+                title1: AppStrings.welcomeHeadlinePart1,
+                title2: AppStrings.welcomeHeadlinePart2,
+              ),
               SizedBox(height: 24),
               WelcomeSubDescriptionText(
-                subDescriptionText:
-                    'اكتشف عالماً جديداً من العقارات\nالاستثنائية التى تتجاوز حدود الخيال',
+                subDescriptionText: AppStrings.welcomeSubDescription,
               ),
             ],
           ),
@@ -39,7 +42,7 @@ class WelcomeForegroundContent extends StatelessWidget {
 
         WelcomeStartExploreButton(
           onPressed: onStartExplore,
-          text: 'ابدأ الاستكشاف',
+          text: AppStrings.welcomeStartExploreButton,
         ),
 
         const Spacer(),

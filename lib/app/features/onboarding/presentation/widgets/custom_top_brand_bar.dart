@@ -1,4 +1,5 @@
 import 'package:aqar360/app/core/constants/app_colors.dart';
+import 'package:aqar360/app/core/constants/app_strings.dart';
 import 'package:aqar360/app/core/constants/app_text_styles.dart';
 import 'package:flutter/material.dart';
 
@@ -34,7 +35,9 @@ class CustomTopBrandBar extends StatelessWidget {
                   ),
                   color: AppColors.white.withValues(alpha: 0.05),
                 ),
-                child: Center(child: Text('Aqar 360', style: textStyle)),
+                child: Center(
+                  child: Text(AppStrings.appName, style: textStyle),
+                ),
               ),
             ),
           ),

@@ -1,4 +1,5 @@
-import 'package:aqar360/app/core/utils/validators.dart';
+import 'package:aqar360/app/core/constants/app_strings.dart';
+import 'package:aqar360/app/core/utils/app_validators.dart';
 import 'package:aqar360/app/features/login/presentation/widgets/custom_auth_text_field.dart';
 import 'package:flutter/material.dart';
 
@@ -17,8 +18,8 @@ class _PasswordInputFieldState extends State<PasswordInputField> {
   @override
   Widget build(BuildContext context) {
     return CustomAuthTextField(
-      label: 'كلمة السر',
-      hint: '••••••••',
+      label: AppStrings.passwordFieldLabel,
+      hint: AppStrings.passwordFieldHint,
       prefixIcon: Icons.lock_outline,
       obscureText: _isObscured,
       controller: widget.controller,
