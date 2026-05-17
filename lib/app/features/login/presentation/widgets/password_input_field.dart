@@ -17,7 +17,7 @@ class _PasswordInputFieldState extends State<PasswordInputField> {
 
   @override
   Widget build(BuildContext context) {
-    return CustomAuthTextField(
+    return CustomTextField(
       label: AppStrings.passwordFieldLabel,
       hint: AppStrings.passwordFieldHint,
       prefixIcon: Icons.lock_outline,

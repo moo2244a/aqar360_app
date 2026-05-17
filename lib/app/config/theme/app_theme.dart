@@ -9,6 +9,7 @@ class AppTheme {
       scaffoldBackgroundColor: AppColors.backgroundWhite,
       colorScheme: const ColorScheme.light(
         primary: AppColors.buttonBlue,
+
         secondary: AppColors.skyBlue,
         surface: AppColors.white,
       ),

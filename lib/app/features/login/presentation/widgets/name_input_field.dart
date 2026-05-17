@@ -10,7 +10,7 @@ class NameInputField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CustomAuthTextField(
+    return CustomTextField(
       controller: controller,
       validator: AppValidators.name,
       keyboardType: TextInputType.name,

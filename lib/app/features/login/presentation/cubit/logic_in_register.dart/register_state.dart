@@ -1,4 +1,4 @@
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:aqar360/app/features/login/data/models/user_model.dart';
 
 abstract class RegisterState {
   const RegisterState();
@@ -16,9 +16,9 @@ class RegisterLoading extends RegisterState {
 }
 
 class RegisterSuccess extends RegisterState {
-  final UserCredential userCredential;
+  final UserModel userModel;
 
-  const RegisterSuccess({required this.userCredential});
+  const RegisterSuccess({required this.userModel});
 }
 
 class RegisterError extends RegisterState {

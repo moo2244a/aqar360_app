@@ -1,5 +1,4 @@
 import 'package:aqar360/app/core/errors/auth_exception.dart';
-import 'package:aqar360/app/core/utils/firebase_helper.dart';
 import 'package:aqar360/app/features/login/domain/usecases/login_usecase.dart';
 import 'package:aqar360/app/features/login/presentation/cubit/logic_in_login/login_state.dart';
 import 'package:aqar360/app/features/login/data/models/user_model.dart';
@@ -15,11 +14,15 @@ class LoginCubit extends Cubit<LoginState> {
     emit(LoginLoading());
 
     try {
-      final userCredential = await FirebaseHelper.signInWithEmailAndPassword(
-        user,
+      final result = await loginUsecase(user);
+      result.fold(
+        (l) {
+          emit(LoginError(message: l.message));
+        },
+        (r) {
+          emit(LoginSuccess(userModel: r));
+        },
       );
-
-      emit(LoginSuccess(userModel: userCredential));
     } on AuthException catch (e) {
       emit(LoginError(message: e.message));
     } catch (e) {

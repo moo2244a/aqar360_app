@@ -1,8 +1,12 @@
 import 'dart:async';
 
 import 'package:aqar360/app/core/constants/app_strings.dart';
+import 'package:aqar360/app/core/constants/user_role.dart';
 import 'package:aqar360/app/core/usecases/snak_bar_message.dart';
-import 'package:aqar360/app/features/home/presentation/screens/home_screen.dart';
+
+import 'package:aqar360/app/features/login/data/models/user_model.dart';
+import 'package:aqar360/app/features/login/domain/usecases/app_layout.dart';
+
 import 'package:aqar360/app/features/login/presentation/widgets/auth_header_background.dart';
 import 'package:aqar360/app/features/login/presentation/widgets/curved_auth_portal.dart';
 import 'package:aqar360/app/features/login/presentation/widgets/verify_email_form_section.dart';
@@ -10,8 +14,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 class VerifyEmailPage extends StatefulWidget {
-  const VerifyEmailPage({super.key});
-
+  const VerifyEmailPage({super.key, required this.userModel});
+  final UserModel userModel;
   @override
   State<VerifyEmailPage> createState() => _VerifyEmailPageState();
 }
@@ -46,21 +50,24 @@ class _VerifyEmailPageState extends State<VerifyEmailPage>
     _doorController.addListener(() {
       setState(() {});
     });
+
     _doorController.addStatusListener((status) {
-      if (status == AnimationStatus.completed) {
-        Navigator.of(context).pushAndRemoveUntil(
-          PageRouteBuilder(
-            pageBuilder: (context, animation, secondaryAnimation) =>
-                const HomeScreen(),
-            transitionsBuilder:
-                (context, animation, secondaryAnimation, child) {
-                  return ScaleTransition(scale: animation, child: child);
-                },
-            transitionDuration: const Duration(milliseconds: 500),
-          ),
-          (route) => false,
-        );
-      }
+      if (status != AnimationStatus.completed) return;
+      if (!mounted) return;
+
+      final role = widget.userModel.role ?? UserRole.user;
+
+      Navigator.of(context).pushAndRemoveUntil(
+        PageRouteBuilder(
+          pageBuilder: (context, animation, secondaryAnimation) {
+            return AppLayout(role: role);
+          },
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            return ScaleTransition(scale: animation, child: child);
+          },
+        ),
+        (route) => false,
+      );
     });
   }
 

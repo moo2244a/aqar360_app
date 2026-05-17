@@ -83,20 +83,30 @@ class _LoginFormSectionState extends State<LoginFormSection> {
                         false,
                       );
                     } else if (state is LoginSuccess) {
-                      if (state.userModel.user!.emailVerified) {
-                        widget.onTap();
+                      if (state.userModel.emailVerified!) {
+                        if (!state.userModel.isBlock!) {
+                          widget.onTap();
 
-                        return SnackBarMessage.call(
-                          context,
-                          AppStrings.loginSuccessMessage,
-                          true,
-                        );
+                          return SnackBarMessage.call(
+                            context,
+                            AppStrings.loginSuccessMessage,
+                            true,
+                          );
+                        } else if (state.userModel.isBlock!) {
+                          return SnackBarMessage.call(
+                            context,
+                            AppStrings.accountBlocked,
+                            false,
+                          );
+                        }
                       } else {
                         Navigator.push(
                           context,
                           MaterialPageRoute(
                             builder: (context) {
-                              return VerifyEmailPage();
+                              return VerifyEmailPage(
+                                userModel: state.userModel,
+                              );
                             },
                           ),
                         );

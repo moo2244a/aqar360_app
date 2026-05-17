@@ -1,4 +1,5 @@
 import 'package:aqar360/app/core/constants/app_colors.dart';
+import 'package:aqar360/app/core/constants/app_strings.dart';
 import 'package:aqar360/app/features/login/presentation/pages/forgot_password_screen.dart';
 import 'package:flutter/material.dart';
 
@@ -27,7 +28,7 @@ class LoginOptionsRow extends StatelessWidget {
             ),
             const SizedBox(width: 8),
             Text(
-              'تذكرني',
+              AppStrings.rememberMeCheckbox,
               style: Theme.of(
                 context,
               ).textTheme.bodyMedium?.copyWith(color: AppColors.white),
@@ -42,7 +43,7 @@ class LoginOptionsRow extends StatelessWidget {
             );
           },
           child: Text(
-            'هل نسيت كلمة السر؟',
+            AppStrings.forgotPasswordLink,
             style: Theme.of(
               context,
             ).textTheme.bodyMedium?.copyWith(color: AppColors.white),

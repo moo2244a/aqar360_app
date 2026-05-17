@@ -9,8 +9,7 @@ class AppColors {
   static const Color black = Color(0xFF000000);
   static const Color skyBlue = Color(0xFF02D0FF);
   static const Color brightCyan = Color(0xFF00CFFF);
-  static const Color skyBlueLight = Color(0xFF66E0FF);
-  static const Color skyBlueDark = Color(0xFF009ACD);
+
   static const Color lightPurple = Color(0xFF2D005F);
   static const Color white = Color(0xFFFFFFFF);
   static const Color backgroundWhite = Color.fromARGB(255, 241, 240, 240);

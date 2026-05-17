@@ -1,24 +1,27 @@
 import 'package:aqar360/app/core/constants/app_colors.dart';
 import 'package:flutter/material.dart';
 
-class CustomAuthTextField extends StatelessWidget {
-  final String label;
+class CustomTextField extends StatelessWidget {
+  final String? label;
   final String hint;
-  final IconData prefixIcon;
+  final IconData? prefixIcon;
   final IconData? suffixIcon;
   final Color? suffixColor;
+  final Color? labelColor;
+
   final Widget? suffixWidget;
   final bool obscureText;
   final TextEditingController? controller;
   final TextInputType? keyboardType;
   final String? Function(String?)? validator;
   final void Function(String)? onChanged;
-
-  const CustomAuthTextField({
+  final int? maxLines;
+  final int? maxLength;
+  const CustomTextField({
     super.key,
-    required this.label,
+    this.label,
     required this.hint,
-    required this.prefixIcon,
+    this.prefixIcon,
     this.suffixIcon,
     this.suffixColor,
     this.suffixWidget,
@@ -27,6 +30,9 @@ class CustomAuthTextField extends StatelessWidget {
     this.keyboardType,
     this.validator,
     this.onChanged,
+    this.labelColor,
+    this.maxLines = 1,
+    this.maxLength,
   });
 
   @override
@@ -34,30 +40,37 @@ class CustomAuthTextField extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          label,
-          style: Theme.of(
-            context,
-          ).textTheme.titleSmall?.copyWith(color: AppColors.white),
-        ),
-        const SizedBox(height: 6),
+        label != null
+            ? Text(
+                label!,
+                style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                  color: labelColor ?? AppColors.white,
+                ),
+              )
+            : SizedBox(),
+        const SizedBox(height: 10),
         TextFormField(
           controller: controller,
           keyboardType: keyboardType,
           validator: validator,
+          maxLength: maxLength,
           onChanged: onChanged,
           obscureText: obscureText,
+          maxLines: maxLines,
 
           style: Theme.of(
             context,
-          ).textTheme.bodyMedium?.copyWith(color: AppColors.midnightBlue),
+          ).textTheme.bodyLarge?.copyWith(color: AppColors.midnightBlue),
           decoration: InputDecoration(
             hintText: hint,
-            prefixIcon: Icon(
-              prefixIcon,
-              color: Theme.of(context).colorScheme.primary,
-              size: 20,
-            ),
+
+            prefixIcon: prefixIcon != null
+                ? Icon(
+                    prefixIcon,
+                    color: Theme.of(context).colorScheme.primary,
+                    size: 20,
+                  )
+                : null,
             suffixIcon:
                 suffixWidget ??
                 (suffixIcon != null
@@ -70,7 +83,7 @@ class CustomAuthTextField extends StatelessWidget {
                       )
                     : null),
             contentPadding: const EdgeInsets.symmetric(
-              vertical: 14,
+              vertical: 16,
               horizontal: 16,
             ),
           ),

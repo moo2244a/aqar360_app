@@ -10,7 +10,7 @@ class EmailInputField extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return CustomAuthTextField(
+    return CustomTextField(
       controller: controller,
       validator: AppValidators.email,
       keyboardType: TextInputType.emailAddress,

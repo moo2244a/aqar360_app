@@ -13,9 +13,15 @@ class RegisterCubit extends Cubit<RegisterState> {
   Future<void> createUserWithEmailAndPassword(UserModel user) async {
     emit(RegisterLoading());
     try {
-      final userCredential =
-          await FirebaseHelper.createUserWithEmailAndPassword(user);
-      emit(RegisterSuccess(userCredential: userCredential));
+      final result = await registerUsecase(user);
+      result.fold(
+        (l) {
+          emit(RegisterError(message: l.message));
+        },
+        (r) {
+          emit(RegisterSuccess(userModel: user));
+        },
+      );
     } on AuthException catch (e) {
       emit(RegisterError(message: e.message));
     } catch (e) {

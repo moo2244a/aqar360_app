@@ -10,7 +10,7 @@ class RegisterNowTextComponent extends StatelessWidget {
   Widget build(BuildContext context) {
     return RichText(
       text: TextSpan(
-        text: AppStrings.alreadyHaveAccountPrompt,
+        text: AppStrings.noAccountPrompt,
         style: Theme.of(
           context,
         ).textTheme.bodyLarge?.copyWith(color: Colors.black87),
@@ -22,7 +22,7 @@ class RegisterNowTextComponent extends StatelessWidget {
             ).textTheme.labelLarge?.copyWith(color: const Color(0xFF2E61B9)),
             recognizer: TapGestureRecognizer()
               ..onTap = () {
-                Navigator.pushReplacement(
+                Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => RegisterScreen()),
                 );

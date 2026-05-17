@@ -31,6 +31,7 @@ class _ForgotPasswordFormSectionState extends State<ForgotPasswordFormSection> {
     return Form(
       key: globalKey,
       child: CurvedAuthPortal(
+        height: MediaQuery.sizeOf(context).height * 0.64,
         color: const Color(0xff4682d7),
         margin: 15,
         gradient: const LinearGradient(

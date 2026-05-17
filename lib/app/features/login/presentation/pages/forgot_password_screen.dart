@@ -27,6 +27,7 @@ class ForgotPasswordScreen extends StatelessWidget {
                       left: 0,
                       child: Center(
                         child: CurvedAuthPortal(
+                          height: MediaQuery.sizeOf(context).height * 0.64,
                           color: Theme.of(context).scaffoldBackgroundColor,
                         ),
                       ),

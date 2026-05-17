@@ -22,10 +22,10 @@ class AuthRepositoryImpl implements AuthRepository {
   }
 
   @override
-  Future<Either<AuthException, UserModel>> register(UserModel user) async {
+  Future<Either<AuthException, UserModel>> register(UserModel userModel) async {
     try {
-      final result = await remoteDataSource.register(user);
-      return Right(result);
+      final user = await remoteDataSource.register(userModel);
+      return Right(user);
     } on AuthException catch (e) {
       return Left(e);
     } catch (e) {

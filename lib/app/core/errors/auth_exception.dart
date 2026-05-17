@@ -7,33 +7,32 @@ class AuthException implements Exception {
   const AuthException._({required this.message, required this.type});
 
   factory AuthException.invalidCredentials() => const AuthException._(
-    message: 'Invalid email or password.',
+    message: 'البريد الإلكتروني أو كلمة المرور غير صحيحة.',
     type: AuthErrorType.invalidCredentials,
   );
 
   factory AuthException.emailAlreadyInUse() => const AuthException._(
-    message: 'This email is already registered.',
+    message: 'هذا البريد الإلكتروني مستخدم بالفعل.',
     type: AuthErrorType.emailAlreadyInUse,
   );
 
   factory AuthException.weakPassword() => const AuthException._(
-    message: 'Password is too weak.',
+    message: 'كلمة المرور ضعيفة جدًا.',
     type: AuthErrorType.weakPassword,
   );
 
   factory AuthException.networkError() => const AuthException._(
-    message: 'Network error. Please check your connection.',
+    message: 'خطأ في الاتصال بالشبكة، تأكد من الإنترنت.',
     type: AuthErrorType.network,
   );
 
   factory AuthException.tooManyRequests() => const AuthException._(
-    message: 'Too many attempts. Please try again later.',
+    message: 'محاولات كثيرة جدًا، حاول مرة أخرى لاحقًا.',
     type: AuthErrorType.tooManyRequests,
   );
 
   factory AuthException.unknown([String? details]) => AuthException._(
-    message:
-        'An unexpected error occurred.${details != null ? ' $details' : ''}',
+    message: 'حدث خطأ غير متوقع.${details != null ? ' $details' : ''}',
     type: AuthErrorType.unknown,
   );
 

@@ -1,6 +1,9 @@
-import 'package:aqar360/app/core/usecases/auth_dependencies.dart';
+import 'package:aqar360/app/core/constants/user_role.dart';
+import 'package:aqar360/app/features/login/domain/usecases/app_layout.dart';
 import 'package:aqar360/app/features/login/presentation/cubit/logic_in_login/login_cubit.dart';
-import 'package:aqar360/app/features/home/presentation/screens/home_screen.dart';
+
+import 'package:aqar360/app/features/login/presentation/cubit/logic_in_login/login_state.dart';
+
 import 'package:aqar360/app/features/login/presentation/widgets/login_form_section.dart';
 import 'package:aqar360/app/features/login/presentation/widgets/curved_auth_portal.dart';
 import 'package:aqar360/app/features/login/presentation/widgets/register_now_text_component.dart';
@@ -36,20 +39,25 @@ class _LoginScreenState extends State<LoginScreen>
       setState(() {});
     });
     _doorController.addStatusListener((status) {
-      if (status == AnimationStatus.completed) {
-        Navigator.of(context).pushAndRemoveUntil(
-          PageRouteBuilder(
-            pageBuilder: (context, animation, secondaryAnimation) =>
-                const HomeScreen(),
-            transitionsBuilder:
-                (context, animation, secondaryAnimation, child) {
-                  return ScaleTransition(scale: animation, child: child);
-                },
-            transitionDuration: const Duration(milliseconds: 500),
-          ),
-          (route) => false,
-        );
-      }
+      if (status != AnimationStatus.completed) return;
+      if (!mounted) return;
+
+      final state = context.read<LoginCubit>().state;
+      if (state is! LoginSuccess) return;
+
+      final role = state.userModel.role ?? UserRole.user;
+
+      Navigator.of(context).pushAndRemoveUntil(
+        PageRouteBuilder(
+          pageBuilder: (context, animation, secondaryAnimation) {
+            return AppLayout(role: role);
+          },
+          transitionsBuilder: (context, animation, secondaryAnimation, child) {
+            return ScaleTransition(scale: animation, child: child);
+          },
+        ),
+        (route) => false,
+      );
     });
   }
 
@@ -64,69 +72,60 @@ class _LoginScreenState extends State<LoginScreen>
   Widget build(BuildContext context) {
     final size = MediaQuery.sizeOf(context);
 
-    return BlocProvider<LoginCubit>(
-      create: (context) {
-        final authDependencies = AuthDependencies.create();
-        return LoginCubit(loginUsecase: authDependencies.loginUsecase);
-      },
-
-      child: Directionality(
-        textDirection: TextDirection.rtl,
-        child: Scaffold(
-          body: SingleChildScrollView(
-            child: Column(
-              children: [
-                SizedBox(
-                  height: size.height * 0.82,
-                  child: Stack(
-                    children: [
-                      const AuthHeaderBackground(),
-                      Positioned(
-                        top: size.height * 0.18,
-                        right: 0,
-                        left: 0,
-                        child: Center(
-                          child: CurvedAuthPortal(
-                            height: MediaQuery.sizeOf(context).height * 0.64,
-                            color: Theme.of(context).scaffoldBackgroundColor,
-                          ),
+    return Directionality(
+      textDirection: TextDirection.rtl,
+      child: Scaffold(
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              SizedBox(
+                height: size.height * 0.82,
+                child: Stack(
+                  children: [
+                    const AuthHeaderBackground(),
+                    Positioned(
+                      top: size.height * 0.18,
+                      right: 0,
+                      left: 0,
+                      child: Center(
+                        child: CurvedAuthPortal(
+                          height: MediaQuery.sizeOf(context).height * 0.64,
+                          color: Theme.of(context).scaffoldBackgroundColor,
                         ),
                       ),
-                      Positioned(
-                        top: size.height * 0.18,
-                        right: 0,
-                        left: 0,
-                        child: Center(
-                          child: AnimatedBuilder(
-                            animation: _doorAngle,
-                            builder: (context, child) {
-                              return Transform(
-                                alignment: Alignment.centerLeft,
-                                transform: Matrix4.identity()
-                                  ..setEntry(3, 2, 0.0015) // perspective
-                                  ..rotateY(
-                                    _doorAngle.value * 3.14159265 / 180,
-                                  ),
-                                child: child,
-                              );
+                    ),
+                    Positioned(
+                      top: size.height * 0.18,
+                      right: 0,
+                      left: 0,
+                      child: Center(
+                        child: AnimatedBuilder(
+                          animation: _doorAngle,
+                          builder: (context, child) {
+                            return Transform(
+                              alignment: Alignment.centerLeft,
+                              transform: Matrix4.identity()
+                                ..setEntry(3, 2, 0.0015) // perspective
+                                ..rotateY(_doorAngle.value * 3.14159265 / 180),
+                              child: child,
+                            );
+                          },
+                          child: LoginFormSection(
+                            onTap: () {
+                              _doorController.forward();
                             },
-                            child: LoginFormSection(
-                              onTap: () {
-                                _doorController.forward();
-                              },
-                            ),
                           ),
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
+              ),
 
-                const SizedBox(height: 50),
-                const RegisterNowTextComponent(),
-                const SizedBox(height: 25),
-              ],
-            ),
+              const SizedBox(height: 50),
+              const RegisterNowTextComponent(),
+              const SizedBox(height: 25),
+            ],
           ),
         ),
       ),

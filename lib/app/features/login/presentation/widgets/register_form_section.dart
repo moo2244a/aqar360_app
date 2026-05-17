@@ -1,5 +1,6 @@
 import 'package:aqar360/app/core/constants/app_colors.dart';
 import 'package:aqar360/app/core/constants/app_strings.dart';
+import 'package:aqar360/app/core/constants/user_role.dart';
 import 'package:aqar360/app/core/usecases/snak_bar_message.dart';
 import 'package:aqar360/app/features/login/presentation/pages/verify_email_page.dart';
 
@@ -93,7 +94,7 @@ class _RegisterFormSectionState extends State<RegisterFormSection> {
                         context,
                         MaterialPageRoute(
                           builder: (context) {
-                            return VerifyEmailPage();
+                            return VerifyEmailPage(userModel: state.userModel);
                           },
                         ),
                       );
@@ -112,6 +113,7 @@ class _RegisterFormSectionState extends State<RegisterFormSection> {
                           email: emailController.text.trim(),
                           password: passwordController.text.trim(),
                           name: nameController.text.trim(),
+                          role: UserRole.user,
                         );
                         if (globalKey.currentState!.validate()) {
                           await RegisterCubit.get(

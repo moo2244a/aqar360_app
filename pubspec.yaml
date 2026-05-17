@@ -30,14 +30,20 @@ environment:
 dependencies:
   bloc: ^9.2.0
   cloud_firestore: ^6.3.0
+  connectivity_plus: ^7.1.1
   cupertino_icons: ^1.0.8
   dartz: ^0.10.1
   firebase_auth: ^6.4.0
   firebase_core: ^4.7.0
+  firebase_storage: ^13.3.0
   flutter:
     sdk: flutter
   flutter_bloc: ^9.1.1
+  
   google_fonts: ^8.0.2
+  http: ^1.6.0
+  image_picker: ^1.2.2
+  intl: ^0.20.2
   lottie: ^3.3.3
 
 dev_dependencies:
